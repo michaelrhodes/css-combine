@@ -25,13 +25,22 @@ var read = function(path) {
 var path = process.argv[2]
 var paths = process.argv.slice(2)
 
+if (!path) {
+  return read('./usage.txt')
+    .pipe(process.stdout)
+}
+
 read(path).on('error', function(error) {
   process.stderr.write(
     error.message + '\n'
   )
 })
 .pipe(concat(function(content) {
-  var rules = css.parse(content.toString()).stylesheet.rules
+  var rules = css
+    .parse(content.toString())
+    .stylesheet
+    .rules
+
   var total = rules.length 
   
   ;(function loop(i) { 
