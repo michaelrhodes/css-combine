@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "css": "~1.4.4",
-    "hyperquest": "~0.1.8"
+    "hyperquest": "~0.1.8",
+    "concat-stream": "~1.1.0"
   },
   "devDependencies": {},
   "scripts": {
