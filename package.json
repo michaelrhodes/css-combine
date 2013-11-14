@@ -1,0 +1,31 @@
+{
+  "name": "css-join",
+  "version": "0.0.0",
+  "description": "Combines CSS files by resolving @import directives.",
+  "main": "index.js",
+  "dependencies": {
+    "css": "~1.4.4",
+    "hyperquest": "~0.1.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:michaelrhodes/css-join.git"
+  },
+  "keywords": [
+    "css",
+    "combine",
+    "concat",
+    "join",
+    "merge",
+    "import"
+  ],
+  "author": "Michael Rhodes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/michaelrhodes/css-join/issues"
+  }
+}
