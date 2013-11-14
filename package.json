@@ -1,7 +1,7 @@
 {
   "name": "css-join",
   "version": "0.0.0",
-  "description": "Combines CSS files by resolving @import directives.",
+  "description": "A module that combines CSS files by resolving @import directives.",
   "main": "index.js",
   "dependencies": {
     "css": "~1.4.4",
