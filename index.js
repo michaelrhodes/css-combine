@@ -69,8 +69,9 @@ Join.prototype._read = function() {
     ;(function loop(i) { 
       var end = function() {
         if (++i < total) {
-          loop(i)
-        } 
+          return loop(i)
+        }
+        thy.push(null)
       }
 
       var rule = rules[i]
