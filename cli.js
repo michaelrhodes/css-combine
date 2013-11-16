@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var join = require('./')
+var combine = require('./')
 
 var file = process.argv[2]
 //var files = process.argv.slice(2)
@@ -10,7 +10,7 @@ if (!file) {
     .pipe(process.stdout)
 }
 
-join(file).on('error', function(error) {
+combine(file).on('error', function(error) {
   process.stderr.write(
     error.message + '\n'
   )
