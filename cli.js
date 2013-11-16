@@ -3,7 +3,6 @@
 var combine = require('./')
 
 var file = process.argv[2]
-//var files = process.argv.slice(2)
 
 if (!file) {
   return fs.createReadStream('./usage.txt')
