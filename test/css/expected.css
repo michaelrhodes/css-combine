@@ -27,3 +27,6 @@
   font-weight: 700;
   src: local('Noto Sans Bold'), local('NotoSans-Bold'), url(http://themes.googleusercontent.com/static/fonts/notosans/v1/PIbvSEyHEdL91QLOQRnZ14nF5uFdDttMLvmWuJdhhgs.ttf) format('truetype');
 }
+body {
+  background-color: #0cd;
+}

@@ -24,9 +24,9 @@ var read = function(path) {
     hyperquest(path)
 }
 
-var Join = function(file) {
-  if (!(this instanceof Join)) {
-    return new Join(file)
+var CSSCombine = function(file) {
+  if (!(this instanceof CSSCombine)) {
+    return new CSSCombine(file)
   }
 
   stream.Readable.call(this)
@@ -41,9 +41,9 @@ var Join = function(file) {
   this.busy = false
 }
 
-util.inherits(Join, stream.Readable)
+util.inherits(CSSCombine, stream.Readable)
 
-Join.prototype._read = function() {
+CSSCombine.prototype._read = function() {
   var thy = this
 
   if (thy.busy) {
@@ -95,8 +95,16 @@ Join.prototype._read = function() {
             thy.push(data)
           }) 
       }
+      else {
+        thy.push(css.stringify({
+          stylesheet: {
+            rules: [rule]
+          }
+        }))
+        end()
+      }
     })(0)
   }))
 }
 
-module.exports = Join
+module.exports = CSSCombine

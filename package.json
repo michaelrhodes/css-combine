@@ -1,6 +1,6 @@
 {
-  "name": "css-join",
-  "version": "0.0.2",
+  "name": "css-combine",
+  "version": "0.0.3",
   "description": "A module that combines CSS files by resolving @import directives.",
   "main": "index.js",
   "bin": "cli.js",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:michaelrhodes/css-join.git"
+    "url": "git@github.com:michaelrhodes/css-combine.git"
   },
   "keywords": [
     "css",
@@ -30,6 +30,6 @@
   "author": "Michael Rhodes",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/michaelrhodes/css-join/issues"
+    "url": "https://github.com/michaelrhodes/css-combine/issues"
   }
 }
