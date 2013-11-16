@@ -11,7 +11,7 @@ $ npm install [-g] css-combine
 ### Usage
 #### cli
 ``` sh
-$ css-combine /path/to/file
+$ css-combine /path/to/file > /path/to/build
 ```
 
 #### module

@@ -3,7 +3,7 @@
 @import url('/test/css/three.css');
 @import "../css/four.css";
 @import url("five.css");
-@import url('http://fonts.googleapis.com/css?family=Noto+Sans:400,700|Maven+Pro:400,700');
+@import url(https://raw.github.com/michaelrhodes/css-combine/master/test/css/three.css);
 
 body {
   background-color: #0cd;

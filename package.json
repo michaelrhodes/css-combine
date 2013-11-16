@@ -1,6 +1,6 @@
 {
   "name": "css-combine",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A module that combines CSS files by resolving @import directives.",
   "main": "index.js",
   "bin": "cli.js",
