@@ -16,17 +16,21 @@ $ css-combine /path/to/file > /path/to/build
 
 #### module
 ``` js
-var fs = require('fs')
-var combine = require('css-combine')
+var combine = require('./')
 
-var css = [
-  "@import 'one.css';",
-  "@import url(two.css);",
-  "@import url('/test/css/three.css');",
-  '@import "../css/four.css";',
-  '@import url("five.css");',
-  "@import url('http://resolves-external-files.too')"
-].combine('\n')
+var raw = '/path/to/file'
+/*
+  @import 'one.css';
+  @import url(two.css);
+  @import url('/test/css/three.css');
+  @import "../css/four.css";
+  @import url("five.css");
+  @import url(https://resolves-external-files.too);
+
+  body:before {
+    content: 'Just regular CSS'
+  }
+*/
 
 combine(raw).pipe(
   fs.createWriteStream('/path/to/build')
