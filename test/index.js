@@ -1,7 +1,7 @@
 var run = require('tape').test
 var fs = require('fs')
 var concat = require('concat-stream')
-var join = require('../')
+var combine = require('../')
 
 run('it works', function(test) {
   var expected = fs.readFileSync(
@@ -16,6 +16,6 @@ run('it works', function(test) {
     test.end()
   })
 
-  join(__dirname + '/css/all.css')
+  combine(__dirname + '/css/all.css')
     .pipe(check)
 })
