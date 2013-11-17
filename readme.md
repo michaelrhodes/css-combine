@@ -22,8 +22,8 @@ var raw = '/path/to/file'
 /*
   @import 'one.css';
   @import url(two.css);
-  @import url('/test/css/three.css');
-  @import "../css/four.css";
+  @import url('/path/to/three.css');
+  @import "../to/four.css";
   @import url("five.css");
   @import url(https://resolves-external-files.too);
 
@@ -36,6 +36,9 @@ combine(raw).pipe(
   fs.createWriteStream('/path/to/build')
 )
 ```
+
+#### Note
+If your @import directives use absolute file-system paths (like `three.css` in the above example), make sure you run css-combine from the root directory so that everything resolves correctly.
 
 ### License
 [MIT](http://opensource.org/licenses/MIT)
