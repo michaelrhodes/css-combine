@@ -16,7 +16,7 @@ $ css-combine /path/to/file > /path/to/build
 
 #### module
 ``` js
-var combine = require('./')
+var combine = require('css-combine')
 
 var raw = '/path/to/file'
 /*
