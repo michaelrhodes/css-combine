@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var combine = require('./')
+var combine = require('../')
 
 var file = process.argv[2]
 
