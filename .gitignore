@@ -1,2 +1,4 @@
+.DS*
+*.log
 node_modules
 example.js
