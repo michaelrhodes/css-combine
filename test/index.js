@@ -1,13 +1,11 @@
-var run = require('tape').test
+var tape = require('tape')
 var fs = require('fs')
 var concat = require('concat-stream')
 var combine = require('../')
 
-run('it works', function(test) {
-  var expected = fs.readFileSync(
-    __dirname + '/css/expected.css'
-  )
-
+var run = function(input, output) {
+  var test = this
+  var expected = fs.readFileSync(output)
   var check = concat(function(result) {
     test.equal(
       result.toString(),
@@ -16,6 +14,19 @@ run('it works', function(test) {
     test.end()
   })
 
-  combine(__dirname + '/css/all.css')
-    .pipe(check)
+  combine(input).pipe(check)
+}
+
+tape('single level of @imports', function(test) {
+  run.call(test,
+    __dirname + '/css/all-single.css',
+    __dirname + '/css/expected-single.css'
+  )
+})
+
+tape('nested @imports', function(test) {
+  run.call(test,
+    __dirname + '/css/all-nested.css',
+    __dirname + '/css/expected-nested.css'
+  )
 })

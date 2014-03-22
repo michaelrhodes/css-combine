@@ -53,25 +53,28 @@ CSSCombine.prototype._read = function() {
   thy.busy = true
   var dir = path.dirname(path.resolve(thy.file))
   var file = path.basename(thy.file)
-  var full = path.join(dir, file)
+  var filepath = path.join(dir, file)
 
-  read(full).on('error', function(error) {
+  var die = function(error) {
     thy.emit('error', error.message)
-  })
-  .pipe(concat(function(content) {
+  }
+
+  var parse = function(content, callback) {
     var rules = css
       .parse(content.toString())
       .stylesheet
       .rules
 
-    var total = rules.length 
-    
-    ;(function loop(i) { 
-      var end = function() {
-        if (++i < total) {
-          return loop(i)
+    var i = 0
+    var l = rules.length
+
+    ;(function loop() { 
+      var next = function() {
+        if (++i < l) {
+          loop()
+          return
         }
-        thy.push(null)
+        callback()
       }
 
       var rule = rules[i]
@@ -90,10 +93,14 @@ CSSCombine.prototype._read = function() {
         }
 
         read(file)
-          .on('end', end)
-          .on('data', function(data) {
-            thy.push(data)
-          }) 
+          .on('error', die)
+          .pipe(concat(function(content) {
+            parse(content, next)
+          }))
+      }
+      else if (!rule.declarations.length) {
+        thy.push(rule.selectors.join(',\n') + ' {}\n')
+        next()    
       }
       else {
         thy.push(css.stringify({
@@ -101,10 +108,19 @@ CSSCombine.prototype._read = function() {
             rules: [rule]
           }
         }))
-        end()
+        next()
       }
-    })(0)
-  }))
+    })()
+  }
+
+  read(filepath)
+    .on('error', die)
+    .pipe(concat(function(content) {
+      parse(content, function() {
+        thy.push('\n')
+        thy.push(null) 
+      })
+    }))
 }
 
 module.exports = CSSCombine
