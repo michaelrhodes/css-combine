@@ -1,5 +1,5 @@
 # css-combine
-css-combine is a module and command-line utility that combines CSS files by resolving their @import directives.
+css-combine is a module/command-line utility that combines CSS files by resolving their @import directives.
 
 [![Build status](https://travis-ci.org/michaelrhodes/css-combine.png?branch=master)](https://travis-ci.org/michaelrhodes/css-combine)
 
