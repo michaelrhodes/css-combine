@@ -60,6 +60,11 @@ CSSCombine.prototype._read = function() {
   }
 
   var parse = function(content, callback) {
+    if (!content) {
+      callback()
+      return
+    }
+
     var rules = css
       .parse(content.toString())
       .stylesheet
