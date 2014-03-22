@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
+var fs = require('fs')
 var combine = require('../')
 
 var file = process.argv[2]
 
 if (!file) {
-  return fs.createReadStream('./usage.txt')
+  return fs.createReadStream(__dirname + '/usage.txt')
     .pipe(process.stdout)
 }
 
