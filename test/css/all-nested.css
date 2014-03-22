@@ -6,6 +6,7 @@
 @import 'seven.css';
 .eight {}
 @import "nine.css";
+@import "die.css";
 
 body {
   background-color: #0cd;

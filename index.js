@@ -68,7 +68,12 @@ CSSCombine.prototype._read = function() {
     var i = 0
     var l = rules.length
 
-    ;(function loop() { 
+    if (!l) {
+      callback()
+      return
+    }
+
+    ;(function loop() {
       var next = function() {
         if (++i < l) {
           loop()
