@@ -108,7 +108,7 @@ CSSCombine.prototype._read = function() {
             parse(content, next)
           }))
       }
-      else if (!rule.declarations.length) {
+      else if (rule.declarations && !rule.declarations.length) {
         thy.push(rule.selectors.join(',\n') + ' {}\n')
         next()    
       }
