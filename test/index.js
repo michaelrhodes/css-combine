@@ -30,3 +30,10 @@ tape('nested @imports', function(test) {
     __dirname + '/css/expected-nested.css'
   )
 })
+
+tape('nested extra @imports', function(test) {
+  run.call(test,
+    __dirname + '/css/all-extra.css',
+    __dirname + '/css/expected-extra.css'
+  )
+})

@@ -54,12 +54,13 @@ CSSCombine.prototype._read = function() {
   var dir = path.dirname(path.resolve(thy.file))
   var file = path.basename(thy.file)
   var filepath = path.join(dir, file)
+  console.log(dir)
 
   var die = function(error) {
     thy.emit('error', error.message)
   }
 
-  var parse = function(content, callback) {
+  var parse = function(filename, content, callback) {
     if (!content) {
       callback()
       return
@@ -93,6 +94,7 @@ CSSCombine.prototype._read = function() {
 
         // Allow relative paths
         if (!isURL(file) && /^[^\/]/.test(file)) {
+          dir = path.dirname(filename)
           file = path.resolve(dir, file)
         }
 
@@ -105,7 +107,7 @@ CSSCombine.prototype._read = function() {
         read(file)
           .on('error', die)
           .pipe(concat(function(content) {
-            parse(content, next)
+            parse(file, content, next)
           }))
       }
       else if (rule.declarations && !rule.declarations.length) {
@@ -126,7 +128,7 @@ CSSCombine.prototype._read = function() {
   read(filepath)
     .on('error', die)
     .pipe(concat(function(content) {
-      parse(content, function() {
+      parse(filepath, content, function() {
         thy.push('\n')
         thy.push(null) 
       })
