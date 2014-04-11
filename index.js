@@ -54,7 +54,6 @@ CSSCombine.prototype._read = function() {
   var dir = path.dirname(path.resolve(thy.file))
   var file = path.basename(thy.file)
   var filepath = path.join(dir, file)
-  console.log(dir)
 
   var die = function(error) {
     thy.emit('error', error.message)
