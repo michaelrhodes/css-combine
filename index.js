@@ -51,15 +51,19 @@ CSSCombine.prototype._read = function() {
   }
   
   thy.busy = true
-  var dir = path.dirname(path.resolve(thy.file))
-  var file = path.basename(thy.file)
-  var filepath = path.join(dir, file)
 
-  var die = function(error) {
-    thy.emit('error', error.message)
-  }
+  var entrypoint = path.resolve(thy.file)
 
-  var parse = function(filename, content, callback) {
+  read(entrypoint)
+    .on('error', die)
+    .pipe(concat(function(content) {
+      parse(entrypoint, content, function() {
+        thy.push('\n')
+        thy.push(null) 
+      })
+    }))
+
+  function parse (filename, content, callback) {
     if (!content) {
       callback()
       return
@@ -124,14 +128,9 @@ CSSCombine.prototype._read = function() {
     })()
   }
 
-  read(filepath)
-    .on('error', die)
-    .pipe(concat(function(content) {
-      parse(filepath, content, function() {
-        thy.push('\n')
-        thy.push(null) 
-      })
-    }))
+  function die (error) {
+    thy.emit('error', error.message)
+  }
 }
 
 module.exports = CSSCombine
