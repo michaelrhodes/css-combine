@@ -3,7 +3,7 @@
 @import url('/test/css/three.css');
 @import "../css/four.css";
 @import url("five.css");
-@import url(https://raw.github.com/michaelrhodes/css-combine/master/test/css/three.css);
+@import url(https://raw.githubusercontent.com/michaelrhodes/css-combine/master/test/css/three.css);
 
 body {
   background-color: #0cd;
