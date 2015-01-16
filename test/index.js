@@ -3,13 +3,14 @@ var fs = require('fs')
 var concat = require('concat-stream')
 var combine = require('../')
 
+var newlines = /\n|\r/g
 var run = function(input, output) {
   var test = this
   var expected = fs.readFileSync(output)
   var check = concat(function(result) {
     test.equal(
-      result.toString(),
-      expected.toString()
+      result.toString().replace(newlines, ''),
+      expected.toString().replace(newlines, '')
     )
     test.end()
   })
