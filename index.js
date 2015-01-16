@@ -1,15 +1,12 @@
 var fs = require('fs')
 var url = require('url')
 var path = require('path')
+var stream = require('stream')
+var util = require('util')
 var css = require('css')
 var concat = require('concat-stream')
 var hyperquest = require('hyperquest')
-var stream = require('stream')
-var util = require('util')
-
-var isURL = function(path) {
-  return !!url.parse(path).protocol
-}
+var isURL = require('is-url')
 
 var extract = function(rule) {
   return rule 
@@ -18,10 +15,10 @@ var extract = function(rule) {
     .replace(/\)\s*$/, '')
 }
 
-var read = function(path) {
-  return !isURL(path) ?
-    fs.createReadStream(path) :
-    hyperquest(path)
+var read = function(file) {
+  return !isURL(file) ?
+    fs.createReadStream(file) :
+    hyperquest(file)
 }
 
 var CSSCombine = function(file) {
@@ -37,7 +34,7 @@ var CSSCombine = function(file) {
     )
   }
 
-  this.file = file
+  this.file = path.normalize(file)
   this.busy = false
 }
 
@@ -96,15 +93,15 @@ CSSCombine.prototype._read = function() {
         var file = extract(rule.import)
 
         // Allow relative paths
-        if (!isURL(file) && /^[^\/]/.test(file)) {
+        if (!isURL(file) && /^[^\/\\]/.test(file)) {
           dir = path.dirname(filename)
-          file = path.resolve(dir, file)
+          file = path.normalize(path.resolve(dir, file))
         }
 
         // Assume absolute paths use the 
         // working directory as root.
-        else if (/^\//.test(file)) {
-          file = path.join(process.cwd(), file)
+        else if (/^\/|\\/.test(file)) {
+          file = path.normalize(path.join(process.cwd(), file))
         }
 
         read(file)
