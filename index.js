@@ -8,6 +8,12 @@ var concat = require('concat-stream')
 var hyperquest = require('hyperquest')
 var isURL = require('is-url')
 
+// Aliases
+var normalize = path.normalize
+var dirname = path.dirname
+var resolve = path.resolve
+var join = path.join
+
 var extract = function(rule) {
   return rule 
     .replace(/^url\(/, '')
@@ -34,7 +40,7 @@ var CSSCombine = function(file) {
     )
   }
 
-  this.file = path.normalize(file)
+  this.file = normalize(file)
   this.busy = false
 }
 
@@ -49,7 +55,7 @@ CSSCombine.prototype._read = function() {
   
   thy.busy = true
 
-  var entrypoint = path.resolve(thy.file)
+  var entrypoint = resolve(thy.file)
 
   read(entrypoint)
     .on('error', die)
@@ -94,14 +100,14 @@ CSSCombine.prototype._read = function() {
 
         // Allow relative paths
         if (!isURL(file) && /^[^\/\\]/.test(file)) {
-          dir = path.dirname(filename)
-          file = path.normalize(path.resolve(dir, file))
+          dir = dirname(filename)
+          file = normalize(resolve(dir, file))
         }
 
         // Assume absolute paths use the 
         // working directory as root.
         else if (/^\/|\\/.test(file)) {
-          file = path.normalize(path.join(process.cwd(), file))
+          file = normalize(join(process.cwd(), file))
         }
 
         read(file)
