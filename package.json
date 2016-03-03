@@ -1,6 +1,6 @@
 {
   "name": "css-combine",
-  "version": "0.1.8",
+  "version": "1.0.0",
   "description": "A module that combines CSS files by resolving @import directives.",
   "main": "index.js",
   "bin": {
@@ -10,7 +10,7 @@
     "concat-stream": "~1.1.0",
     "css": "~2.1.0",
     "hyperquest": "~0.1.8",
-    "is-url": "^1.2.0"
+    "is-url": "~1.2.0"
   },
   "devDependencies": {
     "tape": "~2.11.0"
