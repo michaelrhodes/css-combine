@@ -45,3 +45,10 @@ tape('no @imports', function(test) {
     __dirname + '/css/expected-no.css'
   )
 })
+
+tape('node-style @imports', function(test) {
+  run.call(test,
+    __dirname + '/css/all-node.css',
+    __dirname + '/css/expected-node.css'
+  )
+})

@@ -10,6 +10,7 @@ var isURL = require('is-url')
 
 // Aliases
 var normalize = path.normalize
+var extname = path.extname
 var dirname = path.dirname
 var resolve = path.resolve
 var join = path.join
@@ -108,6 +109,11 @@ CSSCombine.prototype._read = function() {
         // working directory as root.
         else if (/^\/|\\/.test(file)) {
           file = normalize(join(process.cwd(), file))
+        }
+
+        // Handle malformed, node-style imports
+        if (!extname(file)) {
+          file = file + '.css'
         }
 
         read(file)
