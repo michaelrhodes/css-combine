@@ -15,20 +15,7 @@ var dirname = path.dirname
 var resolve = path.resolve
 var join = path.join
 
-var extract = function(rule) {
-  return rule 
-    .replace(/^url\(/, '')
-    .replace(/'|"/g, '')
-    .replace(/\)\s*$/, '')
-}
-
-var read = function(file) {
-  return !isURL(file) ?
-    fs.createReadStream(file) :
-    hyperquest(file)
-}
-
-var CSSCombine = function(file) {
+function CSSCombine (file) {
   if (!(this instanceof CSSCombine)) {
     return new CSSCombine(file)
   }
@@ -47,7 +34,7 @@ var CSSCombine = function(file) {
 
 util.inherits(CSSCombine, stream.Readable)
 
-CSSCombine.prototype._read = function() {
+CSSCombine.prototype._read = function () {
   var thy = this
 
   if (thy.busy) {
@@ -60,8 +47,8 @@ CSSCombine.prototype._read = function() {
 
   read(entrypoint)
     .on('error', die)
-    .pipe(concat(function(content) {
-      parse(entrypoint, content, function() {
+    .pipe(concat(function (content) {
+      parse(entrypoint, content, function () {
         thy.push('\n')
         thy.push(null) 
       })
@@ -87,14 +74,6 @@ CSSCombine.prototype._read = function() {
     }
 
     ;(function loop() {
-      var next = function() {
-        if (++i < l) {
-          loop()
-          return
-        }
-        callback()
-      }
-
       var rule = rules[i]
       if (rule.type == 'import') {
         var file = extract(rule.import)
@@ -118,7 +97,7 @@ CSSCombine.prototype._read = function() {
 
         read(file)
           .on('error', die)
-          .pipe(concat(function(content) {
+          .pipe(concat(function (content) {
             parse(file, content, next)
           }))
       }
@@ -134,12 +113,31 @@ CSSCombine.prototype._read = function() {
         }))
         next()
       }
+
+      function next () {
+        ++i < l ?
+          loop() :
+          callback()
+      }
     })()
   }
 
   function die (error) {
     thy.emit('error', error.message)
   }
+}
+
+function extract (rule) {
+  return rule
+    .replace(/^url\(/, '')
+    .replace(/'|"/g, '')
+    .replace(/\)\s*$/, '')
+}
+
+function read (file) {
+  return !isURL(file) ?
+    fs.createReadStream(file) :
+    hyperquest(file)
 }
 
 module.exports = CSSCombine
