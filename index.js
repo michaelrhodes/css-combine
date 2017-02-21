@@ -110,7 +110,7 @@ CSSCombine.prototype._read = function () {
           stylesheet: {
             rules: [rule]
           }
-        }))
+        }) + '\n')
         next()
       }
 
