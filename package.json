@@ -7,13 +7,13 @@
     "css-combine": "bin/css-combine"
   },
   "dependencies": {
-    "concat-stream": "~1.1.0",
-    "css": "~2.1.0",
-    "hyperquest": "~0.1.8",
-    "is-url": "~1.2.0"
+    "concat-stream": "^2.0.0",
+    "css": "^2.2.4",
+    "hyperquest": "^2.1.3",
+    "is-url": "^1.2.4"
   },
   "devDependencies": {
-    "tape": "~2.11.0"
+    "tape": "^4.9.2"
   },
   "scripts": {
     "test": "tape test/*.js"
